@@ -1,0 +1,34 @@
+version: '3'
+
+services:
+  # Контейнер с Node.js
+  app:
+    build:
+      context: ./app
+      target: dev
+    tty: true
+    working_dir: /opt/server
+    volumes:
+      - ./app:/opt/server
+      - ./static:/opt/static
+    env_file:
+      - .env
+    expose:
+      - '3000'
+    depends_on:
+      - db
+
+  # Контейнер с nginx
+  nginx:
+    container_name: proxy_nginx
+    depends_on:
+      - app
+      - db
+      - pgadmin
+    image: nginx:latest
+    ports:
+      - '80:80'
+    volumes:
+      - ./nginx:/etc/nginx/conf.d
+      - ./static:/var/www/static
+    restart: always
