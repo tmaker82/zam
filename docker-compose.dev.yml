@@ -9,8 +9,7 @@ services:
     volumes:
       - ./app:/opt/server
       - ./static:/opt/static
-    env_file:
-      - .env
+
     expose:
       - '3000'
 
