@@ -1,5 +1,3 @@
-version: '3'
-
 services:
   # Контейнер с Node.js
   src:
