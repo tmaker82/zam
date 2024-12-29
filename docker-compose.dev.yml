@@ -22,9 +22,7 @@ services:
   nginx:
     container_name: proxy_nginx
     depends_on:
-      - app
-      - db
-      - pgadmin
+      - src
     image: nginx:latest
     ports:
       - '80:80'
