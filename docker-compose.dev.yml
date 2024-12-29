@@ -5,9 +5,24 @@ services:
   src:
     build:
       context: ./app
+      target: dev
     tty: true
     working_dir: /opt/server
     volumes:
       - ./src:/opt/server
     expose:
-      - '5000'
+      - '3000'
+
+
+  # Контейнер с nginx
+  nginx:
+    container_name: proxy_nginx
+    depends_on:
+      - src
+    image: nginx:latest
+    ports:
+      - '80:80'
+    volumes:
+      - ./nginx:/etc/nginx/conf.d
+      - ./static:/var/www/static
+    restart: always
